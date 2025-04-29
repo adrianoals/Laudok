@@ -5,6 +5,7 @@ import AboutSection from '@/components/sections/AboutSection';
 import FeaturesSection from '@/components/sections/FeaturesSection';
 import PlansSection from '@/components/sections/PlansSection';
 import AppPreviewSection from '@/components/sections/AppPreviewSection';
+import LaudoFacilSection from '@/components/sections/LaudoFacilSection';
 
 export const metadata = {
   title: 'Laudok - Laudos de Engenharia Inteligentes',
@@ -29,6 +30,7 @@ export default function Home() {
       <Header />
       <HeroSection />
       <AboutSection />
+      <LaudoFacilSection />
       <FeaturesSection />
       <PlansSection />
       <AppPreviewSection />
