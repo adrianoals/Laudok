@@ -5,6 +5,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://laudok.vercel.app"),
   title: "Laudok - Laudos de Engenharia Inteligentes",
   description: "Plataforma especializada em laudos de engenharia para condomínios. Simplifique a gestão de laudos técnicos com nossa solução inteligente.",
   icons: {
