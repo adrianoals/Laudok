@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     description: "Plataforma especializada em laudos de engenharia para condomínios.",
     images: [
       {
-        url: "/og-image.png",
+        url: "/og-image.jpg",
         width: 1200,
         height: 630,
         alt: "Laudok - Laudos de Engenharia Inteligentes",
