@@ -11,8 +11,6 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Laudok - Laudos de Engenharia Inteligentes",
     description: "Plataforma especializada em laudos de engenharia para condomínios.",
-    url: "https://laudok.vercel.app/",
-    type: "website",
     images: [
       {
         url: "/og-image.jpg",
@@ -21,6 +19,7 @@ export const metadata: Metadata = {
         alt: "Laudok - Laudos de Engenharia Inteligentes",
       },
     ],
+    type: "website",
     locale: "pt_BR",
     siteName: "Laudok",
   },
@@ -36,9 +35,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR" className="scroll-smooth">
-      <head>
-        <meta property="fb:app_id" content="SEU_APP_ID_AQUI" />
-      </head>
       <body className={`${inter.className} antialiased`} suppressHydrationWarning>
         {children}
       </body>
