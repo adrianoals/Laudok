@@ -52,7 +52,7 @@ export default function FeaturesSection() {
           {features.map((feature) => (
             <div
               key={feature.name}
-              className="relative bg-indigo-900 rounded-lg p-8 h-[360px] transform transition-all duration-300 hover:scale-105 hover:shadow-xl flex flex-col"
+              className="relative bg-laudok-dark rounded-lg p-8 h-[360px] transform transition-all duration-300 hover:scale-105 hover:shadow-xl flex flex-col"
             >
               <div className="text-white mb-6">
                 {feature.icon}

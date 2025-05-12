@@ -37,7 +37,7 @@ body {
 
 /* Adicione estas linhas para hover */
 .hover\:bg-laudok:hover {
-  background-color: #0086C2 !important;
+  background-color: rgba(0, 134, 194, 0.70) !important;
 }
 .hover\:bg-laudok-dark:hover {
   background-color:  rgba(3, 69, 117, 0.75) !important;

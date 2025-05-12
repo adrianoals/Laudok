@@ -11,7 +11,7 @@ export default function LaudoFacilSection() {
           </p>
         </div> */}
         <div className="mt-12">
-          <div className="relative mx-auto w-full max-w-4xl bg-blue-100 p-4 rounded-lg">
+          <div className="relative mx-auto w-full max-w-4xl bg-laudok-light p-4 rounded-lg">
             <Image
               src="/integrations.png"
               alt="Integrações do Sistema"
