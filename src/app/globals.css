@@ -24,3 +24,34 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.bg-laudok {
+  background-color: #0086C2 !important;
+}
+.bg-laudok-dark {
+  background-color: #034575 !important;
+}
+.bg-laudok-light {
+  background-color: #e6f4fa !important;
+}
+
+/* Adicione estas linhas para hover */
+.hover\:bg-laudok:hover {
+  background-color: #0086C2 !important;
+}
+.hover\:bg-laudok-dark:hover {
+  background-color:  rgba(3, 69, 117, 0.75) !important;
+}
+.hover\:bg-laudok-light:hover {
+  background-color: #e6f4fa !important;
+}
+
+.text-laudok {
+  color: #0086C2 !important;
+}
+.text-laudok-dark {
+  color: #034575 !important;
+}
+.text-laudok-light {
+  color: #e6f4fa !important;
+}
