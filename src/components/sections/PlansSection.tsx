@@ -55,7 +55,7 @@ export default function PlansSection() {
     <section id="plans" className="py-16 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
-          <h2 className="text-base text-blue-600 font-semibold tracking-wide uppercase">Planos</h2>
+          <h2 className="text-base text-laudok font-semibold tracking-wide uppercase">Planos</h2>
           <p className="mt-2 text-3xl font-extrabold text-gray-900 sm:text-4xl">
             Escolha o plano ideal para seu condomínio
           </p>
@@ -76,7 +76,7 @@ export default function PlansSection() {
             >
               {plan.highlighted && (
                 <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2">
-                  <span className="inline-flex rounded-full bg-blue-600 px-4 py-1 text-xs font-semibold uppercase tracking-wider text-white">
+                  <span className="inline-flex rounded-full bg-laudok px-4 py-1 text-xs font-semibold uppercase tracking-wider text-white">
                     Mais Popular
                   </span>
                 </div>
@@ -90,8 +90,8 @@ export default function PlansSection() {
                 </p>
                 <Link
                   href="/signup"
-                  className={`mt-8 block w-full bg-blue-600 border border-transparent rounded-md py-2 text-sm font-semibold text-white text-center hover:bg-blue-700 ${
-                    plan.highlighted ? 'bg-blue-600' : 'bg-blue-500'
+                  className={`mt-8 block w-full bg-laudok border border-transparent rounded-md py-2 text-sm font-semibold text-white text-center hover:bg-laudok ${
+                    plan.highlighted ? 'bg-laudok' : 'bg-laudok'
                   }`}
                 >
                   {plan.cta}

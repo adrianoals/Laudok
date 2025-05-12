@@ -42,7 +42,7 @@ export default function FeaturesSection() {
     <section id="features" className="py-16 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="lg:text-center mb-12">
-          <h2 className="text-base text-primary-600 font-semibold tracking-wide uppercase">Funcionalidades</h2>
+          <h2 className="text-base text-laudok font-semibold tracking-wide uppercase">Funcionalidades</h2>
           <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
             Gestão completa de laudos técnicos
           </p>

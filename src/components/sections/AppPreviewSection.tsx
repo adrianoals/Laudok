@@ -49,7 +49,7 @@ export default function AppPreviewSection() {
             <div className="relative mx-auto w-full rounded-lg shadow-lg lg:max-w-md">
               <div className="relative block w-full bg-white rounded-lg overflow-hidden">
                 <Image
-                  src="/app-preview.png"
+                  src="/preview.png"
                   alt="Laudok App Preview"
                   width={800}
                   height={900}
