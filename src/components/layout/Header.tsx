@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -12,7 +13,13 @@ export default function Header() {
         <div className="flex justify-between items-center h-16">
           <div className="flex-shrink-0">
             <Link href="/" className="flex items-center">
-              <span className="text-2xl font-bold text-gray-900">Laudok</span>
+              <Image
+                src="/logo.svg"
+                alt="Laudok Logo"
+                width={160}
+                height={40}
+                className="h-10 w-auto"
+              />
             </Link>
           </div>
           
