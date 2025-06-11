@@ -1,59 +1,96 @@
+'use client';
+
+import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Footer() {
   return (
-    <footer className="bg-laudok-dark text-white">
-      <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div>
-            <h3 className="text-xl font-bold mb-4">Laudok</h3>
-            <p className="text-gray-400">
-              Soluções inteligentes em laudos de engenharia para condomínios.
+    <footer className="bg-gradient-laudok text-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          {/* Logo e Descrição */}
+          <div className="col-span-1 md:col-span-2">
+            <Link href="/" className="inline-block mb-6">
+              <Image
+                src="/logo-white.svg"
+                alt="LAUDOK!-PRÓ Logo"
+                width={160}
+                height={40}
+                className="h-10 w-auto"
+              />
+            </Link>
+            <p className="text-laudok-light mb-6">
+              Transformando a forma como laudos técnicos são elaborados. 
+              Soluções inteligentes para engenheiros e arquitetos.
             </p>
+            <div className="flex space-x-4">
+              <a
+                href="https://linkedin.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white hover:text-laudok-light transition-colors"
+              >
+                LinkedIn
+              </a>
+              <a
+                href="https://instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white hover:text-laudok-light transition-colors"
+              >
+                Instagram
+              </a>
+            </div>
           </div>
-          
+
+          {/* Links Rápidos */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Links Úteis</h3>
+            <h3 className="text-lg font-semibold mb-4">Links Rápidos</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="#about" className="text-gray-400 hover:text-white transition-colors">
+                <Link href="/sobre" className="text-laudok-light hover:text-white transition-colors">
                   Sobre
                 </Link>
               </li>
               <li>
-                <Link href="#features" className="text-gray-400 hover:text-white transition-colors">
+                <Link href="/funcionalidades" className="text-laudok-light hover:text-white transition-colors">
                   Funcionalidades
                 </Link>
               </li>
               <li>
-                <Link href="#plans" className="text-gray-400 hover:text-white transition-colors">
-                  Planos
+                <Link href="/como-funciona" className="text-laudok-light hover:text-white transition-colors">
+                  Como Funciona
+                </Link>
+              </li>
+              <li>
+                <Link href="/contato" className="text-laudok-light hover:text-white transition-colors">
+                  Contato
                 </Link>
               </li>
             </ul>
           </div>
-          
+
+          {/* Contato */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Legal</h3>
+            <h3 className="text-lg font-semibold mb-4">Contato</h3>
             <ul className="space-y-2">
-              <li>
-                <Link href="/privacidade" className="text-gray-400 hover:text-white transition-colors">
-                  Política de Privacidade
-                </Link>
+              <li className="text-laudok-light">
+                contato@laudok.com.br
               </li>
-              <li>
-                <Link href="/termos" className="text-gray-400 hover:text-white transition-colors">
-                  Termos de Uso
-                </Link>
+              <li className="text-laudok-light">
+                (11) 99999-9999
+              </li>
+              <li className="text-laudok-light">
+                São Paulo, SP
               </li>
             </ul>
           </div>
         </div>
-        
-        <div className="mt-8 pt-8 border-t border-gray-800">
-          <p className="text-center text-gray-400">
-            © {new Date().getFullYear()} Laudok. Todos os direitos reservados.
-          </p>
+
+        {/* Copyright */}
+        <div className="border-t border-white/10 mt-12 pt-8 text-center text-laudok-light">
+          <p>© {new Date().getFullYear()} LAUDOK!-PRÓ. Todos os direitos reservados.</p>
         </div>
       </div>
     </footer>
