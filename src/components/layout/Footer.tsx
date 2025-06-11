@@ -12,13 +12,14 @@ export default function Footer() {
           {/* Logo e Descrição */}
           <div className="col-span-1 md:col-span-2">
             <Link href="/" className="inline-block mb-6">
-              <Image
-                src="/logo-white.svg"
+              <h1 className="text-2xl font-bold">LAUDOK!</h1>
+              {/* <Image
+                src="/logo.svg"
                 alt="LAUDOK!-PRÓ Logo"
                 width={160}
                 height={40}
                 className="h-10 w-auto"
-              />
+              /> */}
             </Link>
             <p className="text-laudok-light mb-6">
               Transformando a forma como laudos técnicos são elaborados. 
@@ -88,9 +89,20 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Copyright */}
-        <div className="border-t border-white/10 mt-12 pt-8 text-center text-laudok-light">
-          <p>© {new Date().getFullYear()} LAUDOK!-PRÓ. Todos os direitos reservados.</p>
+        {/* Copyright e Links Legais */}
+        <div className="border-t border-white/10 mt-12 pt-8">
+          <div className="flex flex-col md:flex-row justify-center items-center gap-4 mb-4">
+            <Link href="/politica-de-privacidade" className="text-laudok-light hover:text-white transition-colors">
+              Política de Privacidade
+            </Link>
+            <span className="hidden md:inline text-laudok-light">•</span>
+            <Link href="/termos-de-uso" className="text-laudok-light hover:text-white transition-colors">
+              Termos de Uso
+            </Link>
+          </div>
+          <p className="text-center text-laudok-light">
+            © {new Date().getFullYear()} LAUDOK!-PRÓ. Todos os direitos reservados.
+          </p>
         </div>
       </div>
     </footer>

@@ -7,7 +7,21 @@ import Link from 'next/link';
 export default function HeroSection() {
   return (
     <section className="relative bg-gradient-laudok text-white">
-      <div className="absolute inset-0 bg-laudok-dark/20" />
+      {/* Video Background */}
+      <div className="absolute inset-0 w-full h-full overflow-hidden">
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute min-w-full min-h-full object-cover opacity-20"
+          poster="/hero-image.png"
+        >
+          <source src="/videos/hero-background.mp4" type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-laudok-dark/20" />
+      </div>
+
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="space-y-8">
@@ -21,19 +35,19 @@ export default function HeroSection() {
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
                 href="/teste-gratis"
-                className="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-laudok-dark bg-white hover:bg-laudok-light shadow-lg transition-colors"
+                className="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-laudok-dark bg-white hover:bg-laudok-light hover:scale-105 hover:shadow-xl transition-all duration-300"
               >
                 Experimente Grátis
               </Link>
               <Link
                 href="/contato"
-                className="inline-flex items-center justify-center px-8 py-3 border-2 border-white text-base font-medium rounded-md text-white hover:bg-white/10 transition-colors"
+                className="inline-flex items-center justify-center px-8 py-3 border-2 border-white text-base font-medium rounded-md text-white bg-laudok-dark hover:bg-laudok hover:scale-105 hover:shadow-xl transition-all duration-300"
               >
                 Fale com um Especialista
               </Link>
             </div>
           </div>
-          <div className="relative h-[400px] lg:h-[500px]">
+          {/* <div className="relative h-[400px] lg:h-[500px]">
             <Image
               src="/hero-image.png"
               alt="Laudok Platform Preview"
@@ -41,7 +55,7 @@ export default function HeroSection() {
               className="object-contain"
               priority
             />
-          </div>
+          </div> */}
         </div>
       </div>
     </section>

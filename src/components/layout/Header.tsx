@@ -28,7 +28,7 @@ export default function Header() {
           <div className="flex items-center space-x-4">
             <Link
               href="/login"
-              className="text-sm font-medium text-laudok hover:text-laudok-dark"
+              className="hidden sm:inline-flex text-sm font-medium text-laudok-dark hover:text-laudok transition-colors"
             >
               Login
             </Link>
@@ -40,7 +40,7 @@ export default function Header() {
             </Link>
             <button
               type="button"
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-laudok"
+              className="inline-flex items-center justify-center p-2 rounded-md text-laudok-dark hover:text-laudok hover:bg-laudok-light focus:outline-none focus:ring-2 focus:ring-inset focus:ring-laudok transition-colors"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
               <span className="sr-only">Abrir menu</span>
@@ -60,47 +60,59 @@ export default function Header() {
 
       {/* Menu */}
       {isMenuOpen && (
-        <div className="absolute w-full bg-white shadow-lg">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="absolute w-[calc(100%-2rem)] sm:w-80 right-4 sm:right-0 bg-white shadow-lg rounded-lg">
+          <div className="px-4 sm:px-6">
             <div className="py-4 space-y-1">
+              {/* Login apenas no mobile */}
+              <div className="sm:hidden">
+                <Link
+                  href="/login"
+                  className="block px-3 py-2 rounded-md text-base font-medium text-laudok-dark hover:text-laudok hover:bg-laudok-light transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Login
+                </Link>
+                <div className="border-t border-gray-200 my-2"></div>
+              </div>
+
               <Link
                 href="/"
-                className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
+                className="block px-3 py-2 rounded-md text-base font-medium text-laudok-dark hover:text-laudok hover:bg-laudok-light transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Início
               </Link>
               <Link
                 href="#about"
-                className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
+                className="block px-3 py-2 rounded-md text-base font-medium text-laudok-dark hover:text-laudok hover:bg-laudok-light transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Sobre
               </Link>
               <Link
                 href="#features"
-                className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
+                className="block px-3 py-2 rounded-md text-base font-medium text-laudok-dark hover:text-laudok hover:bg-laudok-light transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Funcionalidades
               </Link>
               <Link
                 href="#how-it-works"
-                className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
+                className="block px-3 py-2 rounded-md text-base font-medium text-laudok-dark hover:text-laudok hover:bg-laudok-light transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Como Funciona
               </Link>
               <Link
                 href="#testimonials"
-                className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
+                className="block px-3 py-2 rounded-md text-base font-medium text-laudok-dark hover:text-laudok hover:bg-laudok-light transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Depoimentos
               </Link>
               <Link
                 href="#faq"
-                className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
+                className="block px-3 py-2 rounded-md text-base font-medium text-laudok-dark hover:text-laudok hover:bg-laudok-light transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
                 FAQ
@@ -108,7 +120,7 @@ export default function Header() {
               <div className="pt-4 pb-3 border-t border-gray-200">
                 <Link
                   href="/contato"
-                  className="block px-3 py-2 rounded-md text-base font-medium text-laudok hover:bg-laudok-light"
+                  className="block px-3 py-2 rounded-md text-base font-medium text-laudok hover:bg-laudok-light transition-colors"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   Fale com um Especialista
