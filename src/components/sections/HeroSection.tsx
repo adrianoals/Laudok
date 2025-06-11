@@ -1,51 +1,47 @@
-import Link from 'next/link';
+"use client";
+
+import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function HeroSection() {
   return (
-    <section className="relative bg-white overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center min-h-[32rem] pt-15 lg:pt-0">
-        {/* Texto à esquerda */}
-        <div className="w-full lg:w-1/2 z-10 py-12 lg:py-0 flex flex-col items-center lg:items-start">
-          <div className="text-center lg:text-left w-full">
-            <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
-              <span className="block">Laudos de Engenharia</span>
-              <span className="block text-laudok">Inteligentes para Condomínios</span>
+    <section className="relative bg-gradient-laudok text-white">
+      <div className="absolute inset-0 bg-laudok-dark/20" />
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="space-y-8">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+              Laudos de Engenharia
+              <span className="block text-laudok-light">Inteligentes e Eficientes</span>
             </h1>
-            <p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
-              Simplifique a gestão de laudos técnicos do seu condomínio com nossa plataforma especializada. 
-              Agilidade, precisão e conformidade em um só lugar.
+            <p className="text-xl md:text-2xl text-laudok-light">
+              Simplifique a gestão de laudos técnicos para condomínios com nossa plataforma especializada.
             </p>
-            <div className="mt-5 sm:mt-8 flex flex-col sm:flex-row justify-center lg:justify-start items-center w-full gap-3">
-              <div className="rounded-md shadow w-full sm:w-auto">
-                <Link
-                  href="/signup"
-                  className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-laudok hover:bg-laudok md:py-4 md:text-lg md:px-10 transition-colors"
-                >
-                  Teste Grátis
-                </Link>
-              </div>
-              <div className="w-full sm:w-auto">
-                <Link
-                  href="#features"
-                  className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-laudok-dark bg-laudok-light hover:bg-laudok-light md:py-4 md:text-lg md:px-10 transition-colors"
-                >
-                  Saiba Mais
-                </Link>
-              </div>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Link
+                href="/teste-gratis"
+                className="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-laudok-dark bg-white hover:bg-laudok-light shadow-lg transition-colors"
+              >
+                Experimente Grátis
+              </Link>
+              <Link
+                href="/contato"
+                className="inline-flex items-center justify-center px-8 py-3 border-2 border-white text-base font-medium rounded-md text-white hover:bg-white/10 transition-colors"
+              >
+                Fale com um Especialista
+              </Link>
             </div>
           </div>
-        </div>
-        {/* Imagem à direita */}
-        <div className="w-full lg:w-1/2 flex justify-center items-center bg-laudok-light lg:pt-12">
-          <Image
-            src="/engenheirofig.png"
-            alt="Engenheiro trabalhando"
-            width={500}
-            height={400}
-            className="w-full max-w-md h-auto object-contain"
-            priority
-          />
+          <div className="relative h-[400px] lg:h-[500px]">
+            <Image
+              src="/hero-image.png"
+              alt="Laudok Platform Preview"
+              fill
+              className="object-contain"
+              priority
+            />
+          </div>
         </div>
       </div>
     </section>

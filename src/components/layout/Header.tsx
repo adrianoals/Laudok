@@ -11,45 +11,36 @@ export default function Header() {
     <header className="fixed w-full bg-white/90 backdrop-blur-sm z-50 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
+          {/* Logo */}
           <div className="flex-shrink-0">
             <Link href="/" className="flex items-center">
               <Image
                 src="/logo.svg"
-                alt="Laudok Logo"
+                alt="LAUDOK!-PRÓ Logo"
                 width={160}
                 height={40}
                 className="h-10 w-auto"
               />
             </Link>
           </div>
-          
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex space-x-8">
-            <Link href="#about" className="text-gray-600 hover:text-gray-900 transition-colors">
-              Sobre
-            </Link>
-            <Link href="#features" className="text-gray-600 hover:text-gray-900 transition-colors">
-              Funcionalidades
-            </Link>
-            <Link href="#plans" className="text-gray-600 hover:text-gray-900 transition-colors">
-              Planos
-            </Link>
-          </nav>
 
-          <div className="hidden md:flex items-center space-x-4">
+          {/* CTA Buttons */}
+          <div className="flex items-center space-x-4">
             <Link
-              href="/signup"
-              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-laudok hover:bg-laudok transition-colors"
+              href="/login"
+              className="text-sm font-medium text-laudok hover:text-laudok-dark"
             >
-              Teste Grátis
+              Login
             </Link>
-          </div>
-
-          {/* Mobile menu button */}
-          <div className="md:hidden">
+            <Link
+              href="/teste-gratis"
+              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-laudok hover:bg-laudok-dark transition-colors shadow-sm"
+            >
+              Experimente Grátis
+            </Link>
             <button
               type="button"
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500"
+              className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-laudok"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
               <span className="sr-only">Abrir menu</span>
@@ -67,38 +58,63 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Mobile menu */}
+      {/* Menu */}
       {isMenuOpen && (
-        <div className="md:hidden">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            <Link
-              href="#about"
-              className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Sobre
-            </Link>
-            <Link
-              href="#features"
-              className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Funcionalidades
-            </Link>
-            <Link
-              href="#plans"
-              className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Planos
-            </Link>
-            <Link
-              href="/signup"
-              className="block px-3 py-2 rounded-md text-base font-medium text-white bg-laudok-dark hover:bg-laudok-dark"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Teste Grátis
-            </Link>
+        <div className="absolute w-full bg-white shadow-lg">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="py-4 space-y-1">
+              <Link
+                href="/"
+                className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Início
+              </Link>
+              <Link
+                href="#about"
+                className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Sobre
+              </Link>
+              <Link
+                href="#features"
+                className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Funcionalidades
+              </Link>
+              <Link
+                href="#how-it-works"
+                className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Como Funciona
+              </Link>
+              <Link
+                href="#testimonials"
+                className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Depoimentos
+              </Link>
+              <Link
+                href="#faq"
+                className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                FAQ
+              </Link>
+              <div className="pt-4 pb-3 border-t border-gray-200">
+                <Link
+                  href="/contato"
+                  className="block px-3 py-2 rounded-md text-base font-medium text-laudok hover:bg-laudok-light"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Fale com um Especialista
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       )}

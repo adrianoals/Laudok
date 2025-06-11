@@ -3,6 +3,11 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --laudok: #0086C2;
+  --laudok-dark: #034575;
+  --laudok-light: #e6f4fa;
+  --laudok-hover: rgba(0, 134, 194, 0.70);
+  --laudok-dark-hover: rgba(3, 69, 117, 0.75);
 }
 
 @theme inline {
@@ -25,33 +30,83 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/* Cores de fundo */
 .bg-laudok {
-  background-color: #0086C2 !important;
+  background-color: var(--laudok) !important;
 }
 .bg-laudok-dark {
-  background-color: #034575 !important;
+  background-color: var(--laudok-dark) !important;
 }
 .bg-laudok-light {
-  background-color: #e6f4fa !important;
+  background-color: var(--laudok-light) !important;
 }
 
-/* Adicione estas linhas para hover */
-.hover\:bg-laudok:hover {
-  background-color: rgba(0, 134, 194, 0.70) !important;
-}
-.hover\:bg-laudok-dark:hover {
-  background-color:  rgba(3, 69, 117, 0.75) !important;
-}
-.hover\:bg-laudok-light:hover {
-  background-color: #e6f4fa !important;
-}
-
+/* Cores de texto */
 .text-laudok {
-  color: #0086C2 !important;
+  color: var(--laudok) !important;
 }
 .text-laudok-dark {
-  color: #034575 !important;
+  color: var(--laudok-dark) !important;
 }
 .text-laudok-light {
-  color: #e6f4fa !important;
+  color: var(--laudok-light) !important;
+}
+
+/* Hover states */
+.hover\:bg-laudok:hover {
+  background-color: var(--laudok-hover) !important;
+}
+.hover\:bg-laudok-dark:hover {
+  background-color: var(--laudok-dark-hover) !important;
+}
+.hover\:bg-laudok-light:hover {
+  background-color: var(--laudok-light) !important;
+}
+
+.hover\:text-laudok:hover {
+  color: var(--laudok) !important;
+}
+.hover\:text-laudok-dark:hover {
+  color: var(--laudok-dark) !important;
+}
+.hover\:text-laudok-light:hover {
+  color: var(--laudok-light) !important;
+}
+
+/* Bordas */
+.border-laudok {
+  border-color: var(--laudok) !important;
+}
+.border-laudok-dark {
+  border-color: var(--laudok-dark) !important;
+}
+.border-laudok-light {
+  border-color: var(--laudok-light) !important;
+}
+
+/* Anéis de foco */
+.ring-laudok {
+  --tw-ring-color: var(--laudok) !important;
+}
+.ring-laudok-dark {
+  --tw-ring-color: var(--laudok-dark) !important;
+}
+.ring-laudok-light {
+  --tw-ring-color: var(--laudok-light) !important;
+}
+
+/* Gradientes */
+.bg-gradient-laudok {
+  background-image: linear-gradient(to right, var(--laudok), var(--laudok-dark)) !important;
+}
+.bg-gradient-laudok-light {
+  background-image: linear-gradient(to right, var(--laudok-light), var(--laudok)) !important;
+}
+
+/* Sombras */
+.shadow-laudok {
+  box-shadow: 0 4px 6px -1px rgba(0, 134, 194, 0.1), 0 2px 4px -1px rgba(0, 134, 194, 0.06) !important;
+}
+.shadow-laudok-dark {
+  box-shadow: 0 4px 6px -1px rgba(3, 69, 117, 0.1), 0 2px 4px -1px rgba(3, 69, 117, 0.06) !important;
 }
