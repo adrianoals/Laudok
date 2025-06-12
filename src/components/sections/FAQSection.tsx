@@ -30,7 +30,7 @@ export default function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section className="bg-laudok-light">
+    <section className="bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-laudok-dark mb-4">
@@ -45,7 +45,7 @@ export default function FAQSection() {
           {faqs.map((faq, index) => (
             <div
               key={index}
-              className="bg-white rounded-2xl shadow-laudok overflow-hidden"
+              className="bg-white rounded-2xl shadow-laudok overflow-hidden border border-laudok"
             >
               <button
                 className="w-full px-6 py-4 text-left flex items-center justify-between"
@@ -62,7 +62,7 @@ export default function FAQSection() {
               </button>
               {openIndex === index && (
                 <div className="px-6 pb-4">
-                  <p className="text-gray-600">{faq.answer}</p>
+                  <p className="text-laudok-dark">{faq.answer}</p>
                 </div>
               )}
             </div>
