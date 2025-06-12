@@ -15,7 +15,7 @@ export default function Header() {
           <div className="flex-shrink-0">
             <Link href="/" className="flex items-center">
               <Image
-                src="/logo.svg"
+                src="/images/logo.svg"
                 alt="LAUDOK!-PRÓ Logo"
                 width={160}
                 height={40}
