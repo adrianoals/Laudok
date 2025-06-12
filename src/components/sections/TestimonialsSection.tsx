@@ -48,7 +48,7 @@ export default function TestimonialsSection() {
           {testimonials.map((testimonial, index) => (
             <div
               key={index}
-              className="bg-laudok-light rounded-2xl p-8 shadow-laudok"
+              className="bg-laudok rounded-2xl p-8 shadow-laudok"
             >
               <div className="flex items-center gap-4 mb-6">
                 <div className="relative w-16 h-16 rounded-full overflow-hidden">
@@ -60,10 +60,10 @@ export default function TestimonialsSection() {
                   />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-laudok-dark">
+                  <h3 className="text-xl font-bold text-white">
                     {testimonial.name}
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-white">
                     {testimonial.role} - {testimonial.company}
                   </p>
                 </div>
@@ -72,11 +72,11 @@ export default function TestimonialsSection() {
                 {[...Array(testimonial.rating)].map((_, i) => (
                   <Star
                     key={i}
-                    className="w-5 h-5 fill-laudok text-laudok"
+                    className="w-5 h-5 fill-yellow-500 text-white"
                   />
                 ))}
               </div>
-              <p className="text-gray-600 italic">
+              <p className="text-white italic">
                 "{testimonial.content}"
               </p>
             </div>

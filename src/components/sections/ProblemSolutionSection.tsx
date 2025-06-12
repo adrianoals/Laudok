@@ -28,19 +28,19 @@ export default function ProblemSolutionSection() {
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
                 <span className="text-red-600">•</span>
-                <p className="text-laudok-dark">Tempo excessivo na elaboração de laudos</p>
+                <p className="text-gray-600">Tempo excessivo na elaboração de laudos</p>
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-red-600">•</span>
-                <p className="text-laudok-dark">Risco de erros e inconsistências</p>
+                <p className="text-gray-600">Risco de erros e inconsistências</p>
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-red-600">•</span>
-                <p className="text-laudok-dark">Dificuldade em manter a conformidade com normas</p>
+                <p className="text-gray-600">Dificuldade em manter a conformidade com normas</p>
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-red-600">•</span>
-                <p className="text-laudok-dark">Gestão ineficiente de múltiplos projetos</p>
+                <p className="text-gray-600">Gestão ineficiente de múltiplos projetos</p>
               </li>
             </ul>
           </div>
@@ -56,19 +56,19 @@ export default function ProblemSolutionSection() {
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
                 <span className="text-laudok">•</span>
-                <p className="text-laudok-dark">Automação inteligente de processos</p>
+                <p className="text-gray-600">Automação inteligente de processos</p>
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-laudok">•</span>
-                <p className="text-laudok-dark">Conformidade automática com NBR 16.747</p>
+                <p className="text-gray-600">Conformidade automática com NBR 16.747</p>
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-laudok">•</span>
-                <p className="text-laudok-dark">Gestão centralizada de projetos</p>
+                <p className="text-gray-600">Gestão centralizada de projetos</p>
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-laudok">•</span>
-                <p className="text-laudok-dark">Suporte especializado e treinamento</p>
+                <p className="text-gray-600">Suporte especializado e treinamento</p>
               </li>
             </ul>
           </div>
