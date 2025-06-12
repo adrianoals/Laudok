@@ -68,9 +68,9 @@ export default function PlansSection() {
           {plans.map((plan) => (
             <div
               key={plan.name}
-              className={`rounded-lg shadow-lg divide-y divide-gray-200 ${
+              className={`rounded-lg shadow-laudok divide-y divide-gray-200 hover:shadow-laudok-dark transition-all duration-300 hover:scale-105 ${
                 plan.highlighted
-                  ? 'border-2 border-blue-500 relative'
+                  ? 'border-2 border-laudok relative'
                   : 'border border-gray-200'
               }`}
             >
@@ -82,30 +82,28 @@ export default function PlansSection() {
                 </div>
               )}
               <div className="p-6">
-                <h3 className="text-lg font-medium text-gray-900">{plan.name}</h3>
-                <p className="mt-4 text-sm text-gray-500">{plan.description}</p>
+                <h3 className="text-lg font-medium text-laudok-dark">{plan.name}</h3>
+                <p className="mt-4 text-sm text-gray-600">{plan.description}</p>
                 <p className="mt-8">
-                  <span className="text-4xl font-extrabold text-gray-900">{plan.price}</span>
+                  <span className="text-4xl font-extrabold text-laudok-dark">{plan.price}</span>
                   <span className="text-base font-medium text-gray-500">{plan.period}</span>
                 </p>
                 <Link
                   href="/signup"
-                  className={`mt-8 block w-full bg-laudok border border-transparent rounded-md py-2 text-sm font-semibold text-white text-center hover:bg-laudok ${
-                    plan.highlighted ? 'bg-laudok' : 'bg-laudok'
-                  }`}
+                  className={`mt-8 block w-full bg-laudok border border-transparent rounded-md py-2 text-sm font-semibold text-white text-center hover:bg-laudok-dark transition-colors`}
                 >
                   {plan.cta}
                 </Link>
               </div>
               <div className="pt-6 pb-8 px-6">
-                <h4 className="text-sm font-medium text-gray-900 tracking-wide uppercase">
+                <h4 className="text-sm font-medium text-laudok-dark tracking-wide uppercase">
                   O que está incluído
                 </h4>
                 <ul className="mt-6 space-y-4">
                   {plan.features.map((feature) => (
                     <li key={feature} className="flex space-x-3">
                       <svg
-                        className="flex-shrink-0 h-5 w-5 text-green-500"
+                        className="flex-shrink-0 h-5 w-5 text-laudok"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
@@ -117,7 +115,7 @@ export default function PlansSection() {
                           d="M5 13l4 4L19 7"
                         />
                       </svg>
-                      <span className="text-sm text-gray-500">{feature}</span>
+                      <span className="text-sm text-gray-600">{feature}</span>
                     </li>
                   ))}
                 </ul>

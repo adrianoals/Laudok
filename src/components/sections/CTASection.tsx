@@ -17,13 +17,13 @@ export default function CTASection() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/teste-gratis"
-              className="inline-flex items-center justify-center px-8 py-3 border-2 border-white text-base font-medium rounded-md text-white hover:bg-white/10 transition-colors"
+              className="inline-flex items-center justify-center px-8 py-3 border-2 border-white text-base font-medium rounded-md text-white hover:bg-white/10 hover:scale-105 hover:shadow-xl transition-all duration-300"
             >
               Experimente Grátis
             </Link>
             <Link
               href="/contato"
-              className="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-laudok-dark bg-white hover:bg-laudok-light shadow-lg transition-colors"
+              className="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-laudok-dark bg-white hover:bg-laudok-light hover:scale-105 hover:shadow-xl transition-all duration-300"
             >
               Fale com um Especialista
             </Link>
