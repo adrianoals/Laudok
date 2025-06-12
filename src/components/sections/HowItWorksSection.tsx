@@ -43,7 +43,7 @@ export default function HowItWorksSection() {
           {steps.map((step, index) => (
             <div
               key={index}
-              className="relative bg-white rounded-2xl p-8 shadow-laudok"
+              className="relative bg-white rounded-2xl p-8 shadow-laudok hover:shadow-laudok-dark transition-all duration-300 hover:scale-105"
             >
               {index < steps.length - 1 && (
                 <div className="hidden lg:block absolute top-1/2 -right-4 w-8 h-0.5 bg-laudok" />

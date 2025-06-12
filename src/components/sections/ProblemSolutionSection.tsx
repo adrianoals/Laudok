@@ -18,7 +18,7 @@ export default function ProblemSolutionSection() {
 
         <div className="grid md:grid-cols-2 gap-12">
           {/* Problemas */}
-          <div className="bg-white rounded-2xl p-8 shadow-laudok">
+          <div className="bg-white rounded-2xl p-8 shadow-laudok hover:shadow-laudok-dark transition-all duration-300 hover:scale-105">
             <div className="flex items-center gap-4 mb-6">
               <div className="p-3 bg-red-100 rounded-lg">
                 <AlertTriangle className="w-6 h-6 text-red-600" />
@@ -46,7 +46,7 @@ export default function ProblemSolutionSection() {
           </div>
 
           {/* Soluções */}
-          <div className="bg-white rounded-2xl p-8 shadow-laudok">
+          <div className="bg-white rounded-2xl p-8 shadow-laudok hover:shadow-laudok-dark transition-all duration-300 hover:scale-105">
             <div className="flex items-center gap-4 mb-6">
               <div className="p-3 bg-laudok-light rounded-lg">
                 <CheckCircle className="w-6 h-6 text-laudok" />

@@ -42,6 +42,14 @@ export default function Footer() {
               >
                 Instagram
               </a>
+              <a
+                href="https://youtube.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white hover:text-laudok-light transition-colors"
+              >
+                YouTube
+              </a>
             </div>
           </div>
 

@@ -48,7 +48,7 @@ export default function TestimonialsSection() {
           {testimonials.map((testimonial, index) => (
             <div
               key={index}
-              className="bg-laudok rounded-2xl p-8 shadow-laudok"
+              className="bg-gradient-laudok rounded-2xl p-8 shadow-laudok hover:shadow-laudok-dark transition-all duration-300 hover:scale-105"
             >
               <div className="flex items-center gap-4 mb-6">
                 <div className="relative w-16 h-16 rounded-full overflow-hidden">
@@ -63,7 +63,7 @@ export default function TestimonialsSection() {
                   <h3 className="text-xl font-bold text-white">
                     {testimonial.name}
                   </h3>
-                  <p className="text-white">
+                  <p className="text-laudok-light">
                     {testimonial.role} - {testimonial.company}
                   </p>
                 </div>
@@ -76,7 +76,7 @@ export default function TestimonialsSection() {
                   />
                 ))}
               </div>
-              <p className="text-white italic">
+              <p className="text-laudok-light italic">
                 "{testimonial.content}"
               </p>
             </div>
