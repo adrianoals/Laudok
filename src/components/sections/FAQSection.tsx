@@ -45,7 +45,7 @@ export default function FAQSection() {
           {faqs.map((faq, index) => (
             <div
               key={index}
-              className="bg-white rounded-2xl shadow-laudok overflow-hidden border border-laudok"
+              className="bg-white rounded-2xl shadow-laudok overflow-hidden border border-laudok-dark hover:scale-105 hover:shadow-xl transition-all duration-300"
             >
               <button
                 className="w-full px-6 py-4 text-left flex items-center justify-between"
