@@ -34,7 +34,7 @@ export default function Header() {
             </Link>
             <Link
               href="/teste-gratis"
-              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-laudok hover:bg-laudok-dark transition-colors shadow-sm"
+              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-laudok-dark hover:bg-laudok hover:scale-105 hover:shadow-xl transition-all duration-300 shadow-sm"
             >
               Experimente Grátis
             </Link>

@@ -28,13 +28,13 @@ const steps = [
 
 export default function HowItWorksSection() {
   return (
-    <section className="bg-laudok-light">
+    <section className="bg-gradient-laudok text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-laudok-dark mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
             Como Funciona
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl text-laudok-light max-w-3xl mx-auto">
             Processo simples e eficiente para elaboração de laudos técnicos
           </p>
         </div>
@@ -59,7 +59,7 @@ export default function HowItWorksSection() {
                   {step.title}
                 </h3>
               </div>
-              <p className="text-gray-600">
+              <p className="text-laudok-dark">
                 {step.description}
               </p>
             </div>
