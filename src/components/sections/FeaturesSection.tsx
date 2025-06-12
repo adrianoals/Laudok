@@ -53,15 +53,15 @@ export default function FeaturesSection() {
           {features.map((feature, index) => (
             <div
               key={index}
-              className="bg-laudok-light rounded-2xl p-8 shadow-laudok hover:shadow-laudok-dark transition-shadow"
+              className="bg-laudok rounded-2xl p-8 shadow-laudok hover:shadow-laudok-dark transition-shadow text-white"
             >
-              <div className="p-3 bg-laudok rounded-lg w-fit mb-6">
-                <div className="text-white">{feature.icon}</div>
+              <div className="p-3 bg-laudok-light rounded-lg w-fit mb-6">
+                <div className="text-laudok-dark">{feature.icon}</div>
               </div>
-              <h3 className="text-xl font-bold text-laudok-dark mb-3">
+              <h3 className="text-xl font-bold text-white mb-3">
                 {feature.title}
               </h3>
-              <p className="text-gray-600">
+              <p className="text-laudok-light">
                 {feature.description}
               </p>
             </div>
