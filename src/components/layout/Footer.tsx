@@ -109,7 +109,7 @@ export default function Footer() {
             </Link>
           </div>
           <p className="text-center text-laudok-light">
-            © {new Date().getFullYear()} LAUDOK!-PRÓ. Todos os direitos reservados.
+            © {new Date().getFullYear()} LAUDOK. Todos os direitos reservados.
           </p>
         </div>
       </div>
