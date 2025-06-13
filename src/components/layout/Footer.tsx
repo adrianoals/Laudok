@@ -58,17 +58,17 @@ export default function Footer() {
             <h3 className="text-lg font-semibold mb-4">Links Rápidos</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="#about" className="text-laudok-light hover:text-white transition-colors">
+                <Link href="/#about" className="text-laudok-light hover:text-white transition-colors">
                   Sobre
                 </Link>
               </li>
               <li>
-                <Link href="#features" className="text-laudok-light hover:text-white transition-colors">
+                <Link href="/#features" className="text-laudok-light hover:text-white transition-colors">
                   Funcionalidades
                 </Link>
               </li>
               <li>
-                <Link href="#how-it-works" className="text-laudok-light hover:text-white transition-colors">
+                <Link href="/#how-it-works" className="text-laudok-light hover:text-white transition-colors">
                   Como Funciona
                 </Link>
               </li>
