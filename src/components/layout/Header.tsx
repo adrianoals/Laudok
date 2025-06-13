@@ -111,6 +111,13 @@ export default function Header() {
                     >
                       FAQ
                     </Link>
+                    <Link
+                      href="/#plans"
+                      className="block px-3 py-2 rounded-md text-base font-medium text-laudok-dark hover:text-laudok hover:bg-laudok-light transition-colors"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      Planos e Preços
+                    </Link>
                     <div className="pt-4 pb-3 border-t border-gray-200">
                       <Link
                         href="/contato"
