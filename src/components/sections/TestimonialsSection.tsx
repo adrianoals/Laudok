@@ -126,7 +126,7 @@ export default function TestimonialsSection() {
                       ))}
                     </div>
                     <p className="text-laudok-light italic">
-                      "{testimonial.content}"
+                      &quot;{testimonial.content}&quot;
                     </p>
                   </div>
                 </div>
