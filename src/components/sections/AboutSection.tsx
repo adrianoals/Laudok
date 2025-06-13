@@ -10,7 +10,7 @@ const AboutSection = () => {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="relative h-[400px]">
             <Image
-              src="/about-image.jpg"
+              src="/images/about-image.jpg"
               alt="Equipe Laudok"
               fill
               className="object-cover rounded-lg"
