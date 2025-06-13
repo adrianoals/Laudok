@@ -32,4 +32,4 @@ export default function CTASection() {
       </div>
     </section>
   );
-} 
+}
