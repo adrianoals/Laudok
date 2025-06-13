@@ -1,7 +1,8 @@
+import type { Metadata } from 'next';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'Termos de Uso - Laudok',
   description: 'Termos de Uso do Laudok - Condições e regras de utilização da plataforma.',
 };

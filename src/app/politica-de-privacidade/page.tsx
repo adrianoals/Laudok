@@ -1,7 +1,8 @@
+import type { Metadata } from 'next';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'Política de Privacidade - Laudok',
   description: 'Política de Privacidade do Laudok - Proteção e uso de dados.',
 };
