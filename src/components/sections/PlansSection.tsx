@@ -118,7 +118,7 @@ export default function PlansSection() {
               </div>
               <div className="pt-6 pb-8 px-6">
                 <h4 className="text-sm font-medium text-laudok-dark tracking-wide uppercase">
-                  O que está incluído
+                  O que está incluso
                 </h4>
                 <ul className="mt-6 space-y-4">
                   {plan.features.map((feature) => (
