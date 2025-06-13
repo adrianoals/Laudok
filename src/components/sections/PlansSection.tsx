@@ -96,7 +96,7 @@ export default function PlansSection() {
               }`}
             >
               {plan.highlighted && (
-                <div className="absolute -top-3 right-4 z-10">
+                <div className="absolute md:-top-3 md:right-4 top-2 right-2 z-10">
                   <span className="inline-flex rounded-full bg-laudok-dark px-4 py-1 text-xs font-semibold uppercase tracking-wider text-white">
                     Mais Popular
                   </span>
@@ -163,7 +163,7 @@ export default function PlansSection() {
                       }`}
                     >
                       {plan.highlighted && (
-                        <div className="absolute -top-3 right-4 z-10">
+                        <div className="absolute md:-top-3 md:right-4 top-2 right-2 z-10">
                           <span className="inline-flex rounded-full bg-laudok-dark px-4 py-1 text-xs font-semibold uppercase tracking-wider text-white">
                             Mais Popular
                           </span>
