@@ -1,6 +1,26 @@
+"use client";
+
 import Link from 'next/link';
+import { useCallback, useEffect } from 'react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import useEmblaCarousel from 'embla-carousel-react';
 
 export default function PlansSection() {
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    align: 'center',
+    loop: true,
+    slidesToScroll: 1,
+    startIndex: 1, // Começa com o plano Profissional (índice 1)
+  });
+
+  const scrollPrev = useCallback(() => {
+    if (emblaApi) emblaApi.scrollPrev();
+  }, [emblaApi]);
+
+  const scrollNext = useCallback(() => {
+    if (emblaApi) emblaApi.scrollNext();
+  }, [emblaApi]);
+
   const plans = [
     {
       name: 'Básico',
@@ -64,7 +84,8 @@ export default function PlansSection() {
           </p>
         </div>
 
-        <div className="mt-12 space-y-4 sm:mt-16 sm:space-y-0 sm:grid sm:grid-cols-2 sm:gap-6 lg:max-w-4xl lg:mx-auto xl:max-w-none xl:grid-cols-3">
+        {/* Desktop View */}
+        <div className="hidden lg:grid lg:grid-cols-3 lg:gap-6 lg:mt-12 lg:max-w-4xl lg:mx-auto xl:max-w-none">
           {plans.map((plan) => (
             <div
               key={plan.name}
@@ -75,7 +96,7 @@ export default function PlansSection() {
               }`}
             >
               {plan.highlighted && (
-                <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2">
+                <div className="absolute -top-3 right-4 z-10">
                   <span className="inline-flex rounded-full bg-laudok-dark px-4 py-1 text-xs font-semibold uppercase tracking-wider text-white">
                     Mais Popular
                   </span>
@@ -122,6 +143,94 @@ export default function PlansSection() {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Mobile and Tablet View */}
+        <div className="lg:hidden mt-12">
+          <div className="relative">
+            <div className="overflow-hidden" ref={emblaRef}>
+              <div className="flex">
+                {plans.map((plan) => (
+                  <div
+                    key={plan.name}
+                    className="flex-[0_0_100%] md:flex-[0_0_50%] min-w-0 px-4"
+                  >
+                    <div
+                      className={`rounded-lg shadow-laudok divide-y divide-gray-200 hover:shadow-laudok-dark transition-all duration-300 hover:scale-105 ${
+                        plan.highlighted
+                          ? 'border-2 border-laudok relative'
+                          : 'border border-gray-200'
+                      }`}
+                    >
+                      {plan.highlighted && (
+                        <div className="absolute -top-3 right-4 z-10">
+                          <span className="inline-flex rounded-full bg-laudok-dark px-4 py-1 text-xs font-semibold uppercase tracking-wider text-white">
+                            Mais Popular
+                          </span>
+                        </div>
+                      )}
+                      <div className="p-6">
+                        <h3 className="text-lg font-medium text-laudok-dark">{plan.name}</h3>
+                        <p className="mt-4 text-sm text-gray-600">{plan.description}</p>
+                        <p className="mt-8">
+                          <span className="text-4xl font-extrabold text-laudok-dark">{plan.price}</span>
+                          <span className="text-base font-medium text-gray-500">{plan.period}</span>
+                        </p>
+                        <Link
+                          href="/signup"
+                          className={`mt-8 block w-full bg-laudok-dark border border-transparent rounded-md py-2 text-sm font-semibold text-white text-center hover:bg-laudok-dark transition-colors`}
+                        >
+                          {plan.cta}
+                        </Link>
+                      </div>
+                      <div className="pt-6 pb-8 px-6">
+                        <h4 className="text-sm font-medium text-laudok-dark tracking-wide uppercase">
+                          O que está incluído
+                        </h4>
+                        <ul className="mt-6 space-y-4">
+                          {plan.features.map((feature) => (
+                            <li key={feature} className="flex space-x-3">
+                              <svg
+                                className="flex-shrink-0 h-5 w-5 text-laudok"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={2}
+                                  d="M5 13l4 4L19 7"
+                                />
+                              </svg>
+                              <span className="text-sm text-gray-600">{feature}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Navigation Buttons */}
+            <button
+              onClick={scrollPrev}
+              className="absolute left-0 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-2 rounded-full shadow-lg z-10 -ml-4"
+              aria-label="Plano anterior"
+            >
+              <ChevronLeft className="w-6 h-6 text-laudok-dark" />
+            </button>
+
+            <button
+              onClick={scrollNext}
+              className="absolute right-0 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-2 rounded-full shadow-lg z-10 -mr-4"
+              aria-label="Próximo plano"
+            >
+              <ChevronRight className="w-6 h-6 text-laudok-dark" />
+            </button>
+          </div>
         </div>
       </div>
     </section>
