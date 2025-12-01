@@ -1,14 +1,14 @@
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
-import HeroSection from '@/components/sections/HeroSection';
-import AboutSection from '@/components/sections/AboutSection';
-import FeaturesSection from '@/components/sections/FeaturesSection';
-import ProblemSolutionSection from '@/components/sections/ProblemSolutionSection';
-import HowItWorksSection from '@/components/sections/HowItWorksSection';
-import PlansSection from '@/components/sections/PlansSection';
-import TestimonialsSection from '@/components/sections/TestimonialsSection';
-import CTASection from '@/components/sections/CTASection';
-import FAQSection from '@/components/sections/FAQSection';
+import HeroSection from '@/components/home/sections/HeroSection';
+import AboutSection from '@/components/home/sections/AboutSection';
+import FeaturesSection from '@/components/home/sections/FeaturesSection';
+import ProblemSolutionSection from '@/components/home/sections/ProblemSolutionSection';
+import HowItWorksSection from '@/components/home/sections/HowItWorksSection';
+import PlansSection from '@/components/home/sections/PlansSection';
+import TestimonialsSection from '@/components/home/sections/TestimonialsSection';
+import CTASection from '@/components/home/sections/CTASection';
+import FAQSection from '@/components/home/sections/FAQSection';
 
 export const metadata = {
   title: 'Laudok - Laudos de Engenharia Inteligentes',
