@@ -23,6 +23,7 @@ export default function PlansSection() {
 
   const plans = [
     {
+      id: 'basico',
       name: 'Básico',
       price: 'R$ 299',
       period: '/mês',
@@ -36,8 +37,10 @@ export default function PlansSection() {
       ],
       cta: 'Começar Agora',
       highlighted: false,
+      checkoutUrl: '/checkout?plan=basico',
     },
     {
+      id: 'profissional',
       name: 'Profissional',
       price: 'R$ 599',
       period: '/mês',
@@ -52,8 +55,10 @@ export default function PlansSection() {
       ],
       cta: 'Teste Grátis',
       highlighted: true,
+      checkoutUrl: '/checkout?plan=profissional',
     },
     {
+      id: 'enterprise',
       name: 'Enterprise',
       price: 'Sob consulta',
       period: '',
@@ -68,6 +73,7 @@ export default function PlansSection() {
       ],
       cta: 'Fale Conosco',
       highlighted: false,
+      checkoutUrl: '/contato',
     },
   ];
 
@@ -110,7 +116,7 @@ export default function PlansSection() {
                   <span className="text-base font-medium text-gray-500">{plan.period}</span>
                 </p>
                 <Link
-                  href="/signup"
+                  href={plan.checkoutUrl}
                   className={`mt-8 block w-full bg-laudok-dark border border-transparent rounded-md py-2 text-sm font-semibold text-white text-center hover:bg-laudok-dark transition-colors`}
                 >
                   {plan.cta}
