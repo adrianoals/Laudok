@@ -51,23 +51,36 @@ export async function POST(request: NextRequest) {
             // Usar o nome do customer como userName (ou billing name se disponível)
             const userName = customer.name || customer.metadata?.name || 'Usuario';
 
-            if (email && userName) {
+            // Verificar se usuário já foi criado (evitar duplicação)
+            if (email && userName && !subscription.metadata?.pelipUserId) {
               try {
                 // Criar usuário na API PELIP
                 const pelipResponse = await createPelipUser(email, userName);
                 console.log('User created in PELIP:', pelipResponse);
 
-                // Opcional: Salvar informações no banco de dados ou atualizar metadata
-                // await stripe.subscriptions.update(subscriptionId, {
-                //   metadata: {
-                //     pelipUserId: pelipResponse.UserId,
-                //     pelipCallbackUrl: pelipResponse.CallbackUrl,
-                //   },
-                // });
+                // Salvar metadata na subscription para rastreabilidade e evitar duplicação
+                await stripe.subscriptions.update(subscriptionId, {
+                  metadata: {
+                    ...subscription.metadata,
+                    pelipUserId: pelipResponse.UserId,
+                    pelipCallbackUrl: pelipResponse.CallbackUrl,
+                    pelipCreatedAt: new Date().toISOString(),
+                  },
+                });
               } catch (pelipError) {
                 console.error('Error creating user in PELIP:', pelipError);
-                // Log do erro mas não falha o webhook
+                // Retorna erro para que o Stripe tente novamente automaticamente
+                // O Stripe tentará reenviar o webhook por até 3 dias
+                return NextResponse.json(
+                  { 
+                    error: 'Failed to create user in PELIP',
+                    details: pelipError instanceof Error ? pelipError.message : 'Unknown error'
+                  },
+                  { status: 500 }
+                );
               }
+            } else if (subscription.metadata?.pelipUserId) {
+              console.log('User already created in PELIP:', subscription.metadata.pelipUserId);
             }
           }
         }
@@ -77,9 +90,17 @@ export async function POST(request: NextRequest) {
       case 'invoice.payment_succeeded': {
         const invoice = event.data.object as Stripe.Invoice;
         // Invoice pode ter subscription como string ID ou expandido
-        const subscriptionId = (invoice as any).subscription;
+        // Usamos type assertion para acessar propriedade que pode não estar no tipo
+        const invoiceWithSubscription = invoice as Stripe.Invoice & {
+          subscription?: string | Stripe.Subscription | null;
+        };
+        const subscriptionId = invoiceWithSubscription.subscription
+          ? (typeof invoiceWithSubscription.subscription === 'string' 
+              ? invoiceWithSubscription.subscription 
+              : invoiceWithSubscription.subscription.id)
+          : null;
         
-        if (subscriptionId && typeof subscriptionId === 'string') {
+        if (subscriptionId) {
           const subscription = await stripe.subscriptions.retrieve(subscriptionId);
           
           // Se o pagamento foi bem-sucedido e a assinatura está ativa
@@ -96,9 +117,29 @@ export async function POST(request: NextRequest) {
                 // Criar usuário na API PELIP se ainda não foi criado
                 const pelipResponse = await createPelipUser(email, userName);
                 console.log('User created in PELIP (invoice payment):', pelipResponse);
+
+                // Salvar metadata na subscription para rastreabilidade e evitar duplicação
+                await stripe.subscriptions.update(subscriptionId, {
+                  metadata: {
+                    ...subscription.metadata,
+                    pelipUserId: pelipResponse.UserId,
+                    pelipCallbackUrl: pelipResponse.CallbackUrl,
+                    pelipCreatedAt: new Date().toISOString(),
+                  },
+                });
               } catch (pelipError) {
                 console.error('Error creating user in PELIP:', pelipError);
+                // Retorna erro para que o Stripe tente novamente automaticamente
+                return NextResponse.json(
+                  { 
+                    error: 'Failed to create user in PELIP',
+                    details: pelipError instanceof Error ? pelipError.message : 'Unknown error'
+                  },
+                  { status: 500 }
+                );
               }
+            } else if (subscription.metadata?.pelipUserId) {
+              console.log('User already created in PELIP:', subscription.metadata.pelipUserId);
             }
           }
         }
