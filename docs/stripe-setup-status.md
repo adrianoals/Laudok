@@ -132,3 +132,4 @@ Use estes cartões para testar:
    - A chave de teste está documentada em `docs/login.md`
    - Em produção, você precisará da chave real da API
 
+
