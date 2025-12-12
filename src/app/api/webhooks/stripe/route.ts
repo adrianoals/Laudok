@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { stripe } from '@/lib/stripe';
-import { createPelipUser } from '@/lib/pelip-api';
+// import { createPelipUser } from '@/lib/pelip-api'; // Desabilitado temporariamente
 import Stripe from 'stripe';
 
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
@@ -36,64 +36,105 @@ export async function POST(request: NextRequest) {
       case 'checkout.session.completed': {
         const session = event.data.object as Stripe.Checkout.Session;
         
+        console.log('=== CHECKOUT.SESSION.COMPLETED ===');
+        console.log('Session ID:', session.id);
+        console.log('Session Mode:', session.mode);
+        console.log('Customer Email:', session.customer_email);
+        console.log('Customer ID:', session.customer);
+        console.log('Subscription ID:', session.subscription);
+        console.log('Metadata:', JSON.stringify(session.metadata, null, 2));
+        
         // Verificar se é uma assinatura
         if (session.mode === 'subscription') {
           const subscriptionId = session.subscription as string;
-          const subscription = await stripe.subscriptions.retrieve(subscriptionId);
+          const subscription = await stripe.subscriptions.retrieve(subscriptionId) as Stripe.Subscription;
 
-          // Verificar se o pagamento está ativo
-          if (subscription.status === 'active') {
-            // Buscar customer para obter email e nome
-            const customerId = subscription.customer as string;
-            const customer = await stripe.customers.retrieve(customerId) as Stripe.Customer;
-            
-            const email = customer.email || session.customer_email;
-            // Usar o nome do customer como userName (ou billing name se disponível)
-            const userName = customer.name || customer.metadata?.name || 'Usuario';
+          console.log('--- Subscription Details ---');
+          console.log('Subscription ID:', subscription.id);
+          console.log('Status:', subscription.status);
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const subData = subscription as any; // Type assertion para acessar propriedades do Stripe
+          console.log('Current Period Start:', subData.current_period_start ? new Date(subData.current_period_start * 1000).toISOString() : null);
+          console.log('Current Period End:', subData.current_period_end ? new Date(subData.current_period_end * 1000).toISOString() : null);
+          console.log('Cancel At Period End:', subData.cancel_at_period_end);
+          console.log('Metadata:', JSON.stringify(subscription.metadata, null, 2));
+          console.log('Items:', JSON.stringify(subData.items?.data || [], null, 2));
 
-            // Verificar se usuário já foi criado (evitar duplicação)
-            if (email && userName && !subscription.metadata?.pelipUserId) {
-              try {
-                // Criar usuário na API PELIP
-                const pelipResponse = await createPelipUser(email, userName);
-                console.log('User created in PELIP:', pelipResponse);
+          // Buscar customer para obter todos os dados
+          const customerId = subscription.customer as string;
+          const customer = await stripe.customers.retrieve(customerId) as Stripe.Customer;
+          
+          console.log('--- Customer Details ---');
+          console.log('Customer ID:', customer.id);
+          console.log('Email:', customer.email);
+          console.log('Name:', customer.name);
+          console.log('Phone:', customer.phone);
+          console.log('Description:', customer.description);
+          console.log('Address:', JSON.stringify(customer.address, null, 2));
+          console.log('Balance:', customer.balance);
+          console.log('Currency:', customer.currency);
+          console.log('Delinquent:', customer.delinquent);
+          console.log('Created:', new Date(customer.created * 1000).toISOString());
+          console.log('Metadata:', JSON.stringify(customer.metadata, null, 2));
 
-                // Salvar metadata na subscription para rastreabilidade e evitar duplicação
-                await stripe.subscriptions.update(subscriptionId, {
-                  metadata: {
-                    ...subscription.metadata,
-                    pelipUserId: pelipResponse.UserId,
-                    pelipCallbackUrl: pelipResponse.CallbackUrl,
-                    pelipCreatedAt: new Date().toISOString(),
-                  },
-                });
-              } catch (pelipError) {
-                console.error('Error creating user in PELIP:', pelipError);
-                // Retorna erro para que o Stripe tente novamente automaticamente
-                // O Stripe tentará reenviar o webhook por até 3 dias
-                return NextResponse.json(
-                  { 
-                    error: 'Failed to create user in PELIP',
-                    details: pelipError instanceof Error ? pelipError.message : 'Unknown error'
-                  },
-                  { status: 500 }
-                );
-              }
-            } else if (subscription.metadata?.pelipUserId) {
-              console.log('User already created in PELIP:', subscription.metadata.pelipUserId);
-            }
-          }
+          // Log de todos os dados disponíveis para análise
+          console.log('=== DADOS COMPLETOS PARA ANÁLISE ===');
+          console.log(JSON.stringify({
+            session: {
+              id: session.id,
+              mode: session.mode,
+              customer_email: session.customer_email,
+              customer: session.customer,
+              subscription: session.subscription,
+              metadata: session.metadata,
+            },
+            subscription: {
+              id: subscription.id,
+              status: subscription.status,
+              customer: subscription.customer,
+              current_period_start: subData.current_period_start ? new Date(subData.current_period_start * 1000).toISOString() : null,
+              current_period_end: subData.current_period_end ? new Date(subData.current_period_end * 1000).toISOString() : null,
+              cancel_at_period_end: subscription.cancel_at_period_end,
+              items: subscription.items.data.map(item => ({
+                price_id: item.price.id,
+                product_id: item.price.product,
+                quantity: item.quantity,
+              })),
+              metadata: subscription.metadata,
+            },
+            customer: {
+              id: customer.id,
+              email: customer.email,
+              name: customer.name,
+              phone: customer.phone,
+              description: customer.description,
+              address: customer.address,
+              balance: customer.balance,
+              currency: customer.currency,
+              delinquent: customer.delinquent,
+              created: new Date(customer.created * 1000).toISOString(),
+              metadata: customer.metadata,
+            },
+          }, null, 2));
         }
         break;
       }
 
       case 'invoice.payment_succeeded': {
         const invoice = event.data.object as Stripe.Invoice;
+        
+        console.log('=== INVOICE.PAYMENT_SUCCEEDED ===');
+        console.log('Invoice ID:', invoice.id);
+        console.log('Amount Paid:', invoice.amount_paid / 100); // Convertendo de centavos
+        console.log('Currency:', invoice.currency);
+        console.log('Status:', invoice.status);
+        console.log('Customer:', invoice.customer);
+        
         // Invoice pode ter subscription como string ID ou expandido
-        // Usamos type assertion para acessar propriedade que pode não estar no tipo
-        const invoiceWithSubscription = invoice as Stripe.Invoice & {
-          subscription?: string | Stripe.Subscription | null;
-        };
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const invoiceWithSubscription = invoice as any;
+        console.log('Subscription:', invoiceWithSubscription.subscription);
+        console.log('Metadata:', JSON.stringify(invoice.metadata, null, 2));
         const subscriptionId = invoiceWithSubscription.subscription
           ? (typeof invoiceWithSubscription.subscription === 'string' 
               ? invoiceWithSubscription.subscription 
@@ -101,48 +142,119 @@ export async function POST(request: NextRequest) {
           : null;
         
         if (subscriptionId) {
-          const subscription = await stripe.subscriptions.retrieve(subscriptionId);
+          const subscription = await stripe.subscriptions.retrieve(subscriptionId) as Stripe.Subscription;
           
-          // Se o pagamento foi bem-sucedido e a assinatura está ativa
-          if (subscription.status === 'active') {
-            const customerId = subscription.customer as string;
-            const customer = await stripe.customers.retrieve(customerId) as Stripe.Customer;
-            
-            const email = customer.email;
-            // Usar o nome do customer como userName
-            const userName = customer.name || customer.metadata?.name || 'Usuario';
+          console.log('--- Subscription Details ---');
+          console.log('Subscription ID:', subscription.id);
+          console.log('Status:', subscription.status);
+          console.log('Metadata:', JSON.stringify(subscription.metadata, null, 2));
 
-            if (email && userName && !subscription.metadata?.pelipUserId) {
-              try {
-                // Criar usuário na API PELIP se ainda não foi criado
-                const pelipResponse = await createPelipUser(email, userName);
-                console.log('User created in PELIP (invoice payment):', pelipResponse);
+          const customerId = subscription.customer as string;
+          const customer = await stripe.customers.retrieve(customerId) as Stripe.Customer;
+          
+          console.log('--- Customer Details ---');
+          console.log('Customer ID:', customer.id);
+          console.log('Email:', customer.email);
+          console.log('Name:', customer.name);
+          console.log('Phone:', customer.phone);
+          console.log('Address:', JSON.stringify(customer.address, null, 2));
+          console.log('Metadata:', JSON.stringify(customer.metadata, null, 2));
 
-                // Salvar metadata na subscription para rastreabilidade e evitar duplicação
-                await stripe.subscriptions.update(subscriptionId, {
-                  metadata: {
-                    ...subscription.metadata,
-                    pelipUserId: pelipResponse.UserId,
-                    pelipCallbackUrl: pelipResponse.CallbackUrl,
-                    pelipCreatedAt: new Date().toISOString(),
-                  },
-                });
-              } catch (pelipError) {
-                console.error('Error creating user in PELIP:', pelipError);
-                // Retorna erro para que o Stripe tente novamente automaticamente
-                return NextResponse.json(
-                  { 
-                    error: 'Failed to create user in PELIP',
-                    details: pelipError instanceof Error ? pelipError.message : 'Unknown error'
-                  },
-                  { status: 500 }
-                );
-              }
-            } else if (subscription.metadata?.pelipUserId) {
-              console.log('User already created in PELIP:', subscription.metadata.pelipUserId);
-            }
-          }
+          // Log de todos os dados disponíveis para análise
+          console.log('=== DADOS COMPLETOS PARA ANÁLISE ===');
+          console.log(JSON.stringify({
+            invoice: {
+              id: invoice.id,
+              amount_paid: invoice.amount_paid,
+              currency: invoice.currency,
+              status: invoice.status,
+              customer: invoice.customer,
+              subscription: subscriptionId,
+              metadata: invoice.metadata,
+            },
+            subscription: {
+              id: subscription.id,
+              status: subscription.status,
+              metadata: subscription.metadata,
+            },
+            customer: {
+              id: customer.id,
+              email: customer.email,
+              name: customer.name,
+              phone: customer.phone,
+              address: customer.address,
+              metadata: customer.metadata,
+            },
+          }, null, 2));
         }
+        break;
+      }
+
+      case 'customer.subscription.updated': {
+        const subscription = event.data.object as Stripe.Subscription;
+        
+        console.log('=== CUSTOMER.SUBSCRIPTION.UPDATED ===');
+        console.log('Subscription ID:', subscription.id);
+        console.log('Status:', subscription.status);
+        console.log('Previous Attributes:', JSON.stringify(event.data.previous_attributes, null, 2));
+        console.log('Metadata:', JSON.stringify(subscription.metadata, null, 2));
+
+        const customerId = subscription.customer as string;
+        const customer = await stripe.customers.retrieve(customerId) as Stripe.Customer;
+        
+        console.log('--- Customer Details ---');
+        console.log('Customer ID:', customer.id);
+        console.log('Email:', customer.email);
+        console.log('Name:', customer.name);
+        console.log('Metadata:', JSON.stringify(customer.metadata, null, 2));
+
+        console.log('=== DADOS COMPLETOS PARA ANÁLISE ===');
+        console.log(JSON.stringify({
+          subscription: {
+            id: subscription.id,
+            status: subscription.status,
+            previous_attributes: event.data.previous_attributes,
+            metadata: subscription.metadata,
+          },
+          customer: {
+            id: customer.id,
+            email: customer.email,
+            name: customer.name,
+            metadata: customer.metadata,
+          },
+        }, null, 2));
+        break;
+      }
+
+      case 'customer.subscription.deleted': {
+        const subscription = event.data.object as Stripe.Subscription;
+        
+        console.log('=== CUSTOMER.SUBSCRIPTION.DELETED ===');
+        console.log('Subscription ID:', subscription.id);
+        console.log('Status:', subscription.status);
+        console.log('Canceled At:', subscription.canceled_at ? new Date(subscription.canceled_at * 1000).toISOString() : null);
+
+        const customerId = subscription.customer as string;
+        const customer = await stripe.customers.retrieve(customerId) as Stripe.Customer;
+        
+        console.log('--- Customer Details ---');
+        console.log('Customer ID:', customer.id);
+        console.log('Email:', customer.email);
+        console.log('Name:', customer.name);
+
+        console.log('=== DADOS COMPLETOS PARA ANÁLISE ===');
+        console.log(JSON.stringify({
+          subscription: {
+            id: subscription.id,
+            status: subscription.status,
+            canceled_at: subscription.canceled_at ? new Date(subscription.canceled_at * 1000).toISOString() : null,
+          },
+          customer: {
+            id: customer.id,
+            email: customer.email,
+            name: customer.name,
+          },
+        }, null, 2));
         break;
       }
 

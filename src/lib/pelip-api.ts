@@ -1,5 +1,15 @@
 /**
  * Cliente para integração com a API PELIP de pré-cadastro
+ * 
+ * ⚠️ TEMPORARIAMENTE DESABILITADO
+ * 
+ * Este arquivo está mantido para referência futura.
+ * A integração foi removida temporariamente para:
+ * 1. Entender melhor os dados disponíveis nos webhooks da Stripe
+ * 2. Definir quais informações são realmente necessárias
+ * 3. Melhorar o endpoint da API PELIP antes de reimplementar
+ * 
+ * Para reativar: descomente as chamadas em src/app/api/webhooks/stripe/route.ts
  */
 
 const PELIP_API_URL = 'https://laudok.com.br/PELIP_API/CreateUser';
