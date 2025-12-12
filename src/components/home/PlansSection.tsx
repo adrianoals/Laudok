@@ -1,11 +1,11 @@
 "use client";
 
-import Link from 'next/link';
-import { useCallback } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useCallback, useState } from 'react';
+import { ChevronLeft, ChevronRight, Loader2 } from 'lucide-react';
 import useEmblaCarousel from 'embla-carousel-react';
 
 export default function PlansSection() {
+  const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: 'center',
     loop: true,
@@ -20,6 +20,46 @@ export default function PlansSection() {
   const scrollNext = useCallback(() => {
     if (emblaApi) emblaApi.scrollNext();
   }, [emblaApi]);
+
+  const handlePlanClick = async (planId: string, checkoutUrl: string) => {
+    // Se for Enterprise, redirecionar para contato
+    if (planId === 'enterprise') {
+      window.location.href = checkoutUrl;
+      return;
+    }
+
+    setLoadingPlan(planId);
+    try {
+      const response = await fetch('/api/checkout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ planId }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        if (data.redirectTo) {
+          window.location.href = data.redirectTo;
+          return;
+        }
+        throw new Error(data.error || 'Erro ao criar checkout');
+      }
+
+      // Redirecionar para o Stripe Checkout
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        throw new Error('URL de checkout não retornada');
+      }
+    } catch (error) {
+      console.error('Erro ao processar checkout:', error);
+      alert('Erro ao processar checkout. Tente novamente.');
+      setLoadingPlan(null);
+    }
+  };
 
   const plans = [
     {
@@ -37,7 +77,7 @@ export default function PlansSection() {
       ],
       cta: 'Começar Agora',
       highlighted: false,
-      checkoutUrl: '/checkout?plan=basico',
+      checkoutUrl: '/contato',
     },
     {
       id: 'profissional',
@@ -55,7 +95,7 @@ export default function PlansSection() {
       ],
       cta: 'Teste Grátis',
       highlighted: true,
-      checkoutUrl: '/checkout?plan=profissional',
+      checkoutUrl: '/contato',
     },
     {
       id: 'enterprise',
@@ -115,12 +155,20 @@ export default function PlansSection() {
                   <span className="text-4xl font-extrabold text-laudok-dark">{plan.price}</span>
                   <span className="text-base font-medium text-gray-500">{plan.period}</span>
                 </p>
-                <Link
-                  href={plan.checkoutUrl}
-                  className={`mt-8 block w-full bg-laudok-dark border border-transparent rounded-md py-2 text-sm font-semibold text-white text-center hover:bg-laudok-dark transition-colors`}
+                <button
+                  onClick={() => handlePlanClick(plan.id, plan.checkoutUrl)}
+                  disabled={loadingPlan === plan.id}
+                  className={`mt-8 block w-full bg-laudok-dark border border-transparent rounded-md py-2 text-sm font-semibold text-white text-center hover:bg-laudok-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed`}
                 >
-                  {plan.cta}
-                </Link>
+                  {loadingPlan === plan.id ? (
+                    <span className="flex items-center justify-center">
+                      <Loader2 className="w-4 h-4 animate-spin mr-2" />
+                      Processando...
+                    </span>
+                  ) : (
+                    plan.cta
+                  )}
+                </button>
               </div>
               <div className="pt-6 pb-8 px-6">
                 <h4 className="text-sm font-medium text-laudok-dark tracking-wide uppercase">
@@ -182,12 +230,20 @@ export default function PlansSection() {
                           <span className="text-4xl font-extrabold text-laudok-dark">{plan.price}</span>
                           <span className="text-base font-medium text-gray-500">{plan.period}</span>
                         </p>
-                        <Link
-                          href="/signup"
-                          className={`mt-8 block w-full bg-laudok-dark border border-transparent rounded-md py-2 text-sm font-semibold text-white text-center hover:bg-laudok-dark transition-colors`}
+                        <button
+                          onClick={() => handlePlanClick(plan.id, plan.checkoutUrl)}
+                          disabled={loadingPlan === plan.id}
+                          className={`mt-8 block w-full bg-laudok-dark border border-transparent rounded-md py-2 text-sm font-semibold text-white text-center hover:bg-laudok-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed`}
                         >
-                          {plan.cta}
-                        </Link>
+                          {loadingPlan === plan.id ? (
+                            <span className="flex items-center justify-center">
+                              <Loader2 className="w-4 h-4 animate-spin mr-2" />
+                              Processando...
+                            </span>
+                          ) : (
+                            plan.cta
+                          )}
+                        </button>
                       </div>
                       <div className="pt-6 pb-8 px-6">
                         <h4 className="text-sm font-medium text-laudok-dark tracking-wide uppercase">

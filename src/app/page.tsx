@@ -1,14 +1,14 @@
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
-import HeroSection from '@/components/home/sections/HeroSection';
-import AboutSection from '@/components/home/sections/AboutSection';
-import FeaturesSection from '@/components/home/sections/FeaturesSection';
-import ProblemSolutionSection from '@/components/home/sections/ProblemSolutionSection';
-import HowItWorksSection from '@/components/home/sections/HowItWorksSection';
-import PlansSection from '@/components/home/sections/PlansSection';
-import TestimonialsSection from '@/components/home/sections/TestimonialsSection';
-import CTASection from '@/components/home/sections/CTASection';
-import FAQSection from '@/components/home/sections/FAQSection';
+import HeroSection from '@/components/home/HeroSection';
+import AboutSection from '@/components/home/AboutSection';
+import FeaturesSection from '@/components/home/FeaturesSection';
+import ProblemSolutionSection from '@/components/home/ProblemSolutionSection';
+import HowItWorksSection from '@/components/home/HowItWorksSection';
+import PlansSection from '@/components/home/PlansSection';
+import TestimonialsSection from '@/components/home/TestimonialsSection';
+import CTASection from '@/components/home/CTASection';
+import FAQSection from '@/components/home/FAQSection';
 
 export const metadata = {
   title: 'Laudok - Laudos de Engenharia Inteligentes',
