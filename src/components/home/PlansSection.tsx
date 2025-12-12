@@ -93,7 +93,7 @@ export default function PlansSection() {
         'Notificações automáticas',
         'API de integração',
       ],
-      cta: 'Teste Grátis',
+      cta: 'Começar Agora',
       highlighted: true,
       checkoutUrl: '/contato',
     },
