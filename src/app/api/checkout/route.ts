@@ -4,11 +4,11 @@ import { stripe, STRIPE_PLANS } from '@/lib/stripe';
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { planId, email, userName } = body;
+    const { planId } = body;
 
-    if (!planId || !email || !userName) {
+    if (!planId) {
       return NextResponse.json(
-        { error: 'Missing required fields: planId, email, userName' },
+        { error: 'Missing required field: planId' },
         { status: 400 }
       );
     }
@@ -39,9 +39,7 @@ export async function POST(request: NextRequest) {
       mode: 'subscription',
       success_url: `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/checkout/cancel`,
-      customer_email: email,
       metadata: {
-        userName,
         planId,
         planName: plan.name,
       },

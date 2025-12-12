@@ -43,8 +43,13 @@ export async function POST(request: NextRequest) {
 
           // Verificar se o pagamento está ativo
           if (subscription.status === 'active') {
-            const email = session.customer_email || session.metadata?.email;
-            const userName = session.metadata?.userName;
+            // Buscar customer para obter email e nome
+            const customerId = subscription.customer as string;
+            const customer = await stripe.customers.retrieve(customerId) as Stripe.Customer;
+            
+            const email = customer.email || session.customer_email;
+            // Usar o nome do customer como userName (ou billing name se disponível)
+            const userName = customer.name || customer.metadata?.name || 'Usuario';
 
             if (email && userName) {
               try {
@@ -71,9 +76,10 @@ export async function POST(request: NextRequest) {
 
       case 'invoice.payment_succeeded': {
         const invoice = event.data.object as Stripe.Invoice;
-        const subscriptionId = invoice.subscription as string;
-
-        if (subscriptionId) {
+        // Invoice pode ter subscription como string ID ou expandido
+        const subscriptionId = (invoice as any).subscription;
+        
+        if (subscriptionId && typeof subscriptionId === 'string') {
           const subscription = await stripe.subscriptions.retrieve(subscriptionId);
           
           // Se o pagamento foi bem-sucedido e a assinatura está ativa
@@ -82,7 +88,8 @@ export async function POST(request: NextRequest) {
             const customer = await stripe.customers.retrieve(customerId) as Stripe.Customer;
             
             const email = customer.email;
-            const userName = subscription.metadata?.userName || customer.metadata?.userName;
+            // Usar o nome do customer como userName
+            const userName = customer.name || customer.metadata?.name || 'Usuario';
 
             if (email && userName && !subscription.metadata?.pelipUserId) {
               try {
