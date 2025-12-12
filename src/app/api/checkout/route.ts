@@ -41,7 +41,7 @@ export async function POST(request: NextRequest) {
       ],
       mode: 'subscription',
       success_url: `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/checkout/success`,
-      cancel_url: `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/checkout/cancel`,
+      cancel_url: `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/#plans`, // Redireciona para a seção de planos quando usuário volta
       metadata: {
         planId,
         planName: plan.name,

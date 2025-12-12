@@ -5,6 +5,16 @@ import { XCircle } from 'lucide-react';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 
+/**
+ * Página de cancelamento de checkout
+ * 
+ * NOTA: Esta página não é usada no fluxo padrão do checkout.
+ * Quando o usuário clica em "voltar" no Stripe Checkout, ele é redirecionado
+ * para a home (#plans) via cancel_url.
+ * 
+ * Esta página é mantida caso seja necessário tratar cancelamentos reais
+ * de pagamento no futuro (ex: via webhook ou outras integrações).
+ */
 export default function CheckoutCancelPage() {
   return (
     <div className="min-h-screen flex flex-col">
