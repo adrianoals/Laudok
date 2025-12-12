@@ -10,6 +10,7 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 ### Modificado
 - **SEGURANÇA**: Atualizado Next.js de 15.3.1 para 15.3.8 para corrigir vulnerabilidades críticas (CVE-2025-66478, CVE-2025-55184, CVE-2025-55183, CVE-2025-67779)
 - Atualizado eslint-config-next de 15.3.1 para 15.3.8 para manter compatibilidade
+- **Corrigido erro de build**: Implementada inicialização lazy do Stripe para evitar erro durante build quando `STRIPE_SECRET_KEY` não está disponível. A validação agora ocorre apenas em runtime quando a API é chamada
 
 ### Adicionado
 - Página de login (`/login`) com formulário de autenticação
