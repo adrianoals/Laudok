@@ -132,60 +132,80 @@ export async function POST(request: NextRequest) {
         
         // Invoice pode ter subscription como string ID ou expandido
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const invoiceWithSubscription = invoice as any;
-        console.log('Subscription:', invoiceWithSubscription.subscription);
-        console.log('Metadata:', JSON.stringify(invoice.metadata, null, 2));
-        const subscriptionId = invoiceWithSubscription.subscription
-          ? (typeof invoiceWithSubscription.subscription === 'string' 
-              ? invoiceWithSubscription.subscription 
-              : invoiceWithSubscription.subscription.id)
+        const invoiceData = invoice as any;
+        const subscriptionId = invoiceData.subscription
+          ? (typeof invoiceData.subscription === 'string' 
+              ? invoiceData.subscription 
+              : invoiceData.subscription?.id)
           : null;
         
-        if (subscriptionId) {
-          const subscription = await stripe.subscriptions.retrieve(subscriptionId) as Stripe.Subscription;
-          
-          console.log('--- Subscription Details ---');
-          console.log('Subscription ID:', subscription.id);
-          console.log('Status:', subscription.status);
-          console.log('Metadata:', JSON.stringify(subscription.metadata, null, 2));
+        console.log('Subscription ID from invoice:', subscriptionId);
+        console.log('Invoice Metadata:', JSON.stringify(invoice.metadata, null, 2));
+        
+        // Se invoice não tem subscription, pode ser pagamento único (não é subscription)
+        if (!subscriptionId) {
+          console.log('⚠️ Invoice não tem subscription - pode ser pagamento único, não assinatura');
+          break;
+        }
+        
+        // Buscar subscription
+        const subscription = await stripe.subscriptions.retrieve(subscriptionId) as Stripe.Subscription;
+        
+        console.log('--- Subscription Details ---');
+        console.log('Subscription ID:', subscription.id);
+        console.log('Status:', subscription.status);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const subData = subscription as any;
+        console.log('Current Period Start:', subData.current_period_start ? new Date(subData.current_period_start * 1000).toISOString() : null);
+        console.log('Current Period End:', subData.current_period_end ? new Date(subData.current_period_end * 1000).toISOString() : null);
+        console.log('Metadata:', JSON.stringify(subscription.metadata, null, 2));
 
-          const customerId = subscription.customer as string;
-          const customer = await stripe.customers.retrieve(customerId) as Stripe.Customer;
-          
-          console.log('--- Customer Details ---');
-          console.log('Customer ID:', customer.id);
-          console.log('Email:', customer.email);
-          console.log('Name:', customer.name);
-          console.log('Phone:', customer.phone);
-          console.log('Address:', JSON.stringify(customer.address, null, 2));
-          console.log('Metadata:', JSON.stringify(customer.metadata, null, 2));
+        const customerId = subscription.customer as string;
+        const customer = await stripe.customers.retrieve(customerId) as Stripe.Customer;
+        
+        console.log('--- Customer Details ---');
+        console.log('Customer ID:', customer.id);
+        console.log('Email:', customer.email);
+        console.log('Name:', customer.name);
+        console.log('Phone:', customer.phone);
+        console.log('Address:', JSON.stringify(customer.address, null, 2));
+        console.log('Metadata:', JSON.stringify(customer.metadata, null, 2));
 
-          // Log de todos os dados disponíveis para análise
-          console.log('=== DADOS COMPLETOS PARA ANÁLISE ===');
-          console.log(JSON.stringify({
-            invoice: {
-              id: invoice.id,
-              amount_paid: invoice.amount_paid,
-              currency: invoice.currency,
-              status: invoice.status,
-              customer: invoice.customer,
-              subscription: subscriptionId,
-              metadata: invoice.metadata,
-            },
-            subscription: {
-              id: subscription.id,
-              status: subscription.status,
-              metadata: subscription.metadata,
-            },
-            customer: {
-              id: customer.id,
-              email: customer.email,
-              name: customer.name,
-              phone: customer.phone,
-              address: customer.address,
-              metadata: customer.metadata,
-            },
-          }, null, 2));
+        // Log de todos os dados disponíveis para análise
+        console.log('=== DADOS COMPLETOS PARA ANÁLISE (PAGAMENTO RECORRENTE) ===');
+        console.log(JSON.stringify({
+          invoice: {
+            id: invoice.id,
+            amount_paid: invoice.amount_paid,
+            currency: invoice.currency,
+            status: invoice.status,
+            customer: invoice.customer,
+            subscription: subscriptionId,
+            metadata: invoice.metadata,
+          },
+          subscription: {
+            id: subscription.id,
+            status: subscription.status,
+            current_period_start: subData.current_period_start ? new Date(subData.current_period_start * 1000).toISOString() : null,
+            current_period_end: subData.current_period_end ? new Date(subData.current_period_end * 1000).toISOString() : null,
+            metadata: subscription.metadata,
+          },
+          customer: {
+            id: customer.id,
+            email: customer.email,
+            name: customer.name,
+            phone: customer.phone,
+            address: customer.address,
+            metadata: customer.metadata,
+          },
+        }, null, 2));
+        
+        // IMPORTANTE: Este evento confirma que o pagamento recorrente foi bem-sucedido
+        // A assinatura deve estar 'active' após este evento
+        if (subscription.status === 'active') {
+          console.log('✅ Pagamento recorrente confirmado - Assinatura está ATIVA');
+        } else {
+          console.log(`⚠️ Assinatura não está ativa após pagamento. Status: ${subscription.status}`);
         }
         break;
       }

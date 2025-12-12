@@ -9,7 +9,7 @@ export default function CheckoutCancelPage() {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      <main className="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <main className="flex-grow flex items-center justify-center pt-20 pb-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full text-center space-y-8">
           <div className="flex justify-center">
             <XCircle className="w-20 h-20 text-red-500" />

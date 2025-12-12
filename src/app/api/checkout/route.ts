@@ -4,7 +4,7 @@ import { stripe, STRIPE_PLANS } from '@/lib/stripe';
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { planId } = body;
+    const { planId, source } = body; // source é opcional: 'website', 'mobile_app', 'ios_app', 'android_app', etc.
 
     if (!planId) {
       return NextResponse.json(
@@ -27,6 +27,9 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Determinar origem (padrão: 'website')
+    const sourceValue = source || 'website';
+    
     // Criar sessão de checkout no Stripe
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
@@ -37,12 +40,19 @@ export async function POST(request: NextRequest) {
         },
       ],
       mode: 'subscription',
-      success_url: `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
+      success_url: `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/checkout/success`,
       cancel_url: `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/checkout/cancel`,
       metadata: {
         planId,
         planName: plan.name,
+        source: sourceValue, // Rastreamento de origem: 'website' (padrão), 'mobile_app', 'ios_app', 'android_app', etc.
       },
+    });
+
+    console.log('Checkout session created with metadata:', {
+      planId,
+      planName: plan.name,
+      source: sourceValue,
     });
 
     return NextResponse.json({ sessionId: session.id, url: session.url });

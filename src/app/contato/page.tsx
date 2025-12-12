@@ -15,7 +15,7 @@ export default function ContatoPage() {
       <Header />
       <main className="flex-grow">
         {/* Hero Section */}
-        <section className="bg-gradient-laudok text-white py-16">
+        <section className="bg-gradient-laudok text-white pt-24 pb-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center">
               <h1 className="text-4xl md:text-5xl font-bold mb-4">

@@ -1,47 +1,15 @@
 'use client';
 
-import { useEffect, useState, Suspense } from 'react';
-import { useSearchParams, useRouter } from 'next/navigation';
-import { CheckCircle, Loader2 } from 'lucide-react';
+import { CheckCircle } from 'lucide-react';
 import Link from 'next/link';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 
-function CheckoutSuccessContent() {
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const [loading, setLoading] = useState(true);
-  const sessionId = searchParams.get('session_id');
-
-  useEffect(() => {
-    // Verificar se há session_id
-    if (!sessionId) {
-      router.push('/');
-      return;
-    }
-
-    // Simular verificação (você pode adicionar uma chamada à API para verificar o status)
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000);
-  }, [sessionId, router]);
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex flex-col">
-        <Header />
-        <main className="flex-grow flex items-center justify-center">
-          <Loader2 className="w-8 h-8 animate-spin text-laudok" />
-        </main>
-        <Footer />
-      </div>
-    );
-  }
-
+export default function CheckoutSuccessPage() {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      <main className="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <main className="flex-grow flex items-center justify-center pt-20 pb-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full text-center space-y-8">
           <div className="flex justify-center">
             <CheckCircle className="w-20 h-20 text-green-500" />
@@ -74,24 +42,6 @@ function CheckoutSuccessContent() {
       </main>
       <Footer />
     </div>
-  );
-}
-
-export default function CheckoutSuccessPage() {
-  return (
-    <Suspense
-      fallback={
-        <div className="min-h-screen flex flex-col">
-          <Header />
-          <main className="flex-grow flex items-center justify-center">
-            <Loader2 className="w-8 h-8 animate-spin text-laudok" />
-          </main>
-          <Footer />
-        </div>
-      }
-    >
-      <CheckoutSuccessContent />
-    </Suspense>
   );
 }
 
