@@ -11,7 +11,7 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      <main className="flex-grow flex items-center justify-center bg-gray-50 pt-20 pb-12 px-4 sm:px-6 lg:px-8">
+      <main className="flex-grow flex items-center justify-center bg-gray-50 pt-24 sm:pt-28 pb-12 px-4 sm:px-6 lg:px-8">
         <LoginForm />
       </main>
       <Footer />
