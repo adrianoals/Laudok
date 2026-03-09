@@ -1,39 +1,96 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Laudok — Institutional Website
+
+**Landing page and Stripe integration built for Laudok by [XNAP](https://xnap.com.br)**
+
+🇧🇷 [Leia em Português](README.pt-br.md)
+
+🔗 **Live site:** [laudok.vercel.app](https://laudok.vercel.app)
+
+---
+
+Institutional website for **Laudok**, a company specializing in automated building inspection reports compliant with ABNT NBR 16.747/2020. The site showcases the product, features, pricing plans, and integrates with Stripe for subscription management and platform access.
+
+> **Note:** This repository contains only the institutional website and payment integration. The Laudok inspection platform itself is a separate project.
+
+## Tech Stack
+
+| Layer     | Technology                          |
+|-----------|-------------------------------------|
+| Framework | Next.js 15 (App Router, Turbopack) |
+| Language  | TypeScript (strict mode)            |
+| Styling   | Tailwind CSS 4                      |
+| Payments  | Stripe (subscriptions & checkout)   |
+| Hosting   | Vercel                              |
+
+## Features
+
+- Professional landing page with hero, features showcase, and pricing plans
+- Stripe integration for subscription management and platform access
+- Login flow connecting users to the Laudok platform
+- Responsive design (mobile, tablet, desktop)
+- SEO optimized with Open Graph metadata
+
+## Project Structure
+
+```
+src/
+├── app/
+│   ├── api/
+│   │   ├── auth/login/          # Authentication endpoint
+│   │   ├── checkout/            # Stripe checkout session
+│   │   ├── contato/             # Contact form handler
+│   │   └── webhooks/stripe/     # Stripe webhook listener
+│   ├── checkout/
+│   │   ├── success/             # Post-purchase confirmation
+│   │   └── cancel/              # Checkout cancellation
+│   ├── contato/                 # Contact page
+│   ├── login/                   # Login page
+│   ├── termos-de-uso/           # Terms of use
+│   ├── politica-de-privacidade/ # Privacy policy
+│   ├── layout.tsx               # Root layout
+│   └── page.tsx                 # Home / landing page
+├── components/
+│   ├── home/                    # Landing page sections
+│   ├── contato/                 # Contact page components
+│   ├── login/                   # Login components
+│   └── layout/                  # Header, Footer
+└── lib/
+    ├── stripe.ts                # Stripe client initialization
+    └── pelip-api.ts             # External API integration
+```
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+# Clone the repository
+git clone https://github.com/adrianoals/laudok.git
+cd laudok
+
+# Install dependencies
+npm install
+
+# Set up environment variables
+cp .env.example .env.local
+# Edit .env.local with your Stripe keys (see section below)
+
+# Start the development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The app will be available at [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Environment Variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Copy `.env.example` to `.env.local` and fill in the required values:
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Variable                       | Description                        |
+|--------------------------------|------------------------------------|
+| `STRIPE_SECRET_KEY`            | Stripe secret key                  |
+| `STRIPE_PUBLISHABLE_KEY`       | Stripe publishable key             |
+| `STRIPE_WEBHOOK_SECRET`        | Stripe webhook signing secret      |
+| `STRIPE_PRICE_ID_BASICO`       | Price ID for the Basic plan        |
+| `STRIPE_PRICE_ID_PROFISSIONAL` | Price ID for the Professional plan |
+| `NEXT_PUBLIC_APP_URL`          | Application base URL               |
 
 ## License
 
