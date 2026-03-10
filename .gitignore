@@ -30,6 +30,10 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
+# logs com possíveis dados sensíveis
+*.log
+docs/log.txt
+
 # env files (can opt-in for committing if needed)
 .env*
 !.env.example
